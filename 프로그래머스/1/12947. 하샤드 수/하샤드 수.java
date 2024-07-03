@@ -2,18 +2,16 @@
 //String을 정수로 바꿔서 더하기
 //그것을 x와 나눴을때 0이면 true 아니면 false
 class Solution {
-    public boolean solution(int x) {
-        boolean answer = true;
-        String[] s=String.valueOf(x).split("");
-        int hap=0;
-        
-        for(int i=0;i<s.length;i++){
-            hap+=Integer.parseInt(s[i]);
+    public boolean solution(int num){
+        String[] tmp=String.valueOf(num).split("");
+        int sum=0;
+        for(String s: tmp){
+            sum+=Integer.parseInt(s);
+        }if(num%sum==0){
+            return true;
+        }else{
+            return false;
         }
-        if(x%hap==0){
-            answer=true;
-        }else
-            answer=false;
-        return answer;
     }
 }
+
