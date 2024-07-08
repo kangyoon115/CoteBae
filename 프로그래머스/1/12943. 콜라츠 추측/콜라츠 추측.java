@@ -4,7 +4,9 @@
 class Solution {
     public int solution(int num) {
         int count=0;
-       
+        if(num==1){
+            return 0;
+        }
         while(num!=1){
             if(num%2==0){
                 num/=2;
