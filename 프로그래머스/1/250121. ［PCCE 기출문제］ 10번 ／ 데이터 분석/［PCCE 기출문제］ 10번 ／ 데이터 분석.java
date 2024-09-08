@@ -44,14 +44,8 @@ class Solution {
             sort = 3;
         }
         
-        // 오름차순 정렬
-        Arrays.sort(answer, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] o1, int[] o2) {
-                
-                return o1[sort] - o2[sort];
-            }
-        });
+        // 오름차순 정렬 (람다식 사용)
+        Arrays.sort(answer, (o1, o2) -> o1[sort] - o2[sort]);
         
         return answer;
     }
