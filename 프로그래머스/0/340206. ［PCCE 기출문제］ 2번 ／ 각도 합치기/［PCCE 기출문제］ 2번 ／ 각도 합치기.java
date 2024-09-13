@@ -7,6 +7,6 @@ public class Solution {
         int angle2 = sc.nextInt();
 
         int sum_angle = angle1 + angle2;
-        System.out.println((sum_angle % 360+360)%360);
+        System.out.println(sum_angle % 360);
     }
 }
