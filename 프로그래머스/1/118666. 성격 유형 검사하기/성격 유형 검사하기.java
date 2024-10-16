@@ -5,17 +5,7 @@ import java.util.HashMap;
 class Solution {
 
     public String solution(String[] survey, int[] choices) {
-        return checkPersonalityType(survey, choices);
-    }
-
-    /**
-     * 성격 유형 검사하기
-     * 
-     * @param survey  성격 유형 배열
-     * @param choices 선택지 배열
-     * @return String 성격 유형
-     */
-    public String checkPersonalityType(String[] survey, int[] choices) {
+       
         /*
          * @Desc
          * 1. 검사지의 기준값을 구한다. (choice가 4일 때 0점)
