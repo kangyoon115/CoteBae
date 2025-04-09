@@ -6,7 +6,7 @@ class Solution {
  
     public int solution(int n, int[][] wires) {
         graph = new ArrayList[n + 1];
-        min = Integer.MAX_VALUE;
+        min = Integer.MAX_VALUE; //최소차이
  
         // 그래프 ArrayList 초기화. 노드 개수만큼 ArrayList 생성
         for (int i = 1; i <= n; i++) {
@@ -31,8 +31,9 @@ class Solution {
             graph[v1].remove(Integer.valueOf(v2));
             graph[v2].remove(Integer.valueOf(v1));
  
-            int cnt = dfs(1, visited); // 임의의 시작점에서 dfs 탐색
+            int cnt = dfs(1, visited); // 1번 송전탑에서 시작해 연결된 송전탑 수 계산
  
+            // 두 컴포넌트 크기 차이 계산
             int diff = Math.abs(cnt - (n - cnt));
             min = Math.min(min, diff);
  
@@ -44,6 +45,7 @@ class Solution {
         return min;
     }
  
+    //노드 개수 세기
     static int dfs(int v, boolean[] visited) {
         visited[v] = true;
         int cnt = 1;
