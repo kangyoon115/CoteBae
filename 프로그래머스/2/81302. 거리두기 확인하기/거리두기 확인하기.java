@@ -1,5 +1,5 @@
 class Solution {
-    //https://minheelog.tistory.com/15
+
     int isTrue;           // 거리두기 준수 여부
     String[] room;
     boolean[][] visited;   
