@@ -1,63 +1,86 @@
 import java.util.*;
-
-class Solution {    
+class Solution {
+ 
+boolean[] visited; 
+int len;//속성 수
+int cnt;//튜플 수
+Set<String> list = new HashSet<>();
+List<String> list2= new ArrayList<>();
     public int solution(String[][] relation) {
         int answer = 0;
-        int rowCnt = relation.length;
-        int colCnt = relation[0].length;
         
-        // 모든 부분 집합
-        boolean[] visited = new boolean[colCnt];
-        List<String> subset = new ArrayList<>();
-        dfs(visited, subset, 0);
-        Collections.sort(subset, (String s1, String s2) -> s1.length() - s2.length());
+        len=relation[0].length;
+        cnt=relation.length;
+        visited=new boolean[len];
+       
         
-        // 해시 세트에 현재 부분집합이 포함된 게 없으면 조회 시작
-        HashSet<String> set = new HashSet<>();
-        
-        
-        for(String currSet:subset) {
-            boolean hasSubset = false;
-            for(String str : set) {
-                String tmp = currSet.replaceAll("[" + str + "]", "");
-                if (currSet.length() - tmp.length() == str.length()) {
-                    hasSubset = true;
-                }
-            }
-
-            if(hasSubset) continue;
-
-            // 해당 부분 집합으로 중복되는 게 없으면 세트에 넣기
-            List<String> rows = new ArrayList<>();
-            for (String[] row: relation) {
-                String element = "";
-                for (char c:currSet.toCharArray()) {
-                    int index = c - '0';
-                    element += String.valueOf(row[index]);
-                }
-                if (!rows.contains(element)) rows.add(element);
-            }
-            if(rows.size() == rowCnt) {
-                set.add(currSet);
-            }
+        for(int i=1;i<=len;i++){
+            comb(0,i,relation);           
+            unique(relation); 
+            list.clear();   
         }     
-        
-        return set.size();
+        return list2.size();
+    }
+ 
+    public void comb (int start,int r,String[][] relation){     
+        if(r==0){
+            String temp="";
+            for(int i=0;i<len;i++){
+                if(visited[i]){
+                    temp+=i;
+                }
+            }
+            list.add(temp);
+        }      
+        for(int i=start;i<len;i++){
+            if(!visited[i]){
+                visited[i]=true;
+                comb(i+1,r-1,relation);
+                visited[i]=false;
+            }
+        }
     }
     
-    void dfs(boolean[] visited, List<String> subset, int idx) {
-        if (idx == visited.length) {
-            String subsetStr = "";
-            for(int i = 0;i<visited.length;i++) {
-                if (visited[i]) subsetStr += String.valueOf(i);
+    //유일성+ 최소성 검사
+    public void unique(String[][] relation){
+        //유일성 판단하기
+        for(String data:list){
+            String[] temp= data.split("");
+            int[] arr=new int[temp.length];
+            for(int i=0;i<temp.length;i++){
+                int c =Integer.parseInt(temp[i]);
+                arr[i]=c;
+             }
+            //유일성 판단하기위한 set
+            Set<String> set = new HashSet<>();
+            for(int i=0;i<cnt;i++){
+                String cdd="";
+              for(String data2:temp){
+                int c =Integer.parseInt(data2);
+                cdd+=relation[i][c];
+              }
+                set.add(cdd);
             }
-            if (!subsetStr.equals(""))subset.add(subsetStr);
-            return;
+            //만약 유일하다면 최소성 검사
+            if(set.size()==cnt){
+                boolean flag=false;
+                //이미 후보키에 있는 것 중 포함되는게 있으면 안됨
+                for(String data3:list2){
+                    int cnt=0;
+                    String[] temp3= data3.split("");         
+                    for(String data4:temp3){
+                        if(data.contains(data4)){
+                            cnt++;
+                        }
+                    }
+                    if(cnt==data3.length()){
+                        flag=true;
+                    }
+                }
+                if(!flag){
+                   list2.add(data);                             
+                }
+            }
         }
-        
-        visited[idx] = true;
-        dfs(visited, subset, idx+1);
-        visited[idx] = false;
-        dfs(visited, subset, idx+1);
     }
 }
