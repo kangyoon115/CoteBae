@@ -13,6 +13,7 @@ class Solution {
             this.playtime = playtime;
         }
         
+        // 중단된 과제 스택에 넣음
         public Task(String name, int playtime) {
             this.name = name;
             this.playtime = playtime;
@@ -28,6 +29,7 @@ class Solution {
             (o1, o2) -> (o1.start - o2.start)
         );
         
+        // 분단위로 저장
         for(int i = 0; i < plans.length; i++) {
             String name = plans[i][0];
             
@@ -82,12 +84,12 @@ class Solution {
                         }
                     }
                 }
-                // 지금 과제 끝내면 새로운 과제 시작할 시간인 경우
+                // 과제를 딱 맞춰 끝내는 경우
                 else if(curStart + curPlaytime == nextTask.start) {
                     answer.add(curName);
                     continue;
                 }
-                // 새로운 과제 시작전까지 지금 과제를 못 끝내는 경우
+                // 여유가 없어서 중단해야하는 경우
                 else {
                     int t = (nextTask.start - currentTime);
                     remainingTasks.push(new Task(curName, curPlaytime - t));
