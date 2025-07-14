@@ -1,7 +1,7 @@
 public class Solution {
-	static private int[] res = new int[11];//점수차가 최대일때 라이언이 쏜 화살배열
+	static private int[] res = new int[11];//라이언이 쏜 화살배열
 	static private int[] lion= {-1};//정답배열
-	static private int max = Integer.MIN_VALUE;//최대값
+	static private int max = Integer.MIN_VALUE;
     public static int[] solution(int n, int[] info) {
         back(0,n,info);//라이언이 쏜 화살에 대한 조합
         
@@ -12,6 +12,7 @@ public class Solution {
         return lion;
     }
     
+    //depth: 현재까지 사용한 화살 수 , n: 총 사용할 수 있는 화살 수
     public static void back(int depth, int n, int[] info) {
     	//화살 다 꽂았을때(종료조건)
     	if(depth==n) {
