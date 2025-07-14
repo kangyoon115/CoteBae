@@ -1,10 +1,9 @@
 class Solution {
     public long solution(int cap, int n, int[] deliveries, int[] pickups) {
-        long answer = 0;
-        //트럭 하나로 모든 배달과 수거를 마치고 물류창고까지 돌아올 수 있는 최소 이동 거리를 return 
+        long answer = 0;// 총 이동 거리
         
-        int d = 0;
-        int p = 0;
+        int d = 0;// 누적 배달량 (음수: 남은 배달량)
+        int p = 0;// 누적 수거량 (음수: 남은 수거량)
         for(int i=n-1; i>=0; i--){
             d -= deliveries[i];
             p -= pickups[i];
